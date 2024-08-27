@@ -3,7 +3,6 @@ package com.irojas.demojwt.User.Services.Specification;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
@@ -20,12 +19,14 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchUserSpecification implements Specification<User> {
+public class UserDocenteSpecification implements Specification<User> {
 
     private String nombreUno;
     private String nombreDos;
@@ -43,21 +44,17 @@ public class SearchUserSpecification implements Specification<User> {
     private String correo;
     private String telefono;
     private String apodo;
-    private String pregunta;
-    private String respuesta;
     private Boolean acudiente;
-    private String username;
-    private String password;
     private String estado;
     private String role;
+
 
     @Override
     @Nullable
     public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        
-        List<Predicate> predicates = new ArrayList<>();
+         List<Predicate> predicates = new ArrayList<>();
 
-        if (StringUtils.isNotBlank(nombreUno)) {
+         if (StringUtils.isNotBlank(nombreUno)) {
             Expression<String> nameTolowerCase = criteriaBuilder.lower(root.get("nombreUno"));
             Predicate nameLikePredicate = criteriaBuilder.like(nameTolowerCase, "%" + nombreUno.toLowerCase() + "%");
             predicates.add(nameLikePredicate);
@@ -143,18 +140,6 @@ public class SearchUserSpecification implements Specification<User> {
             predicates.add(apodoLikePredicate);
         }
 
-        if (StringUtils.isNotBlank(pregunta)) {
-            Expression<String> preguntaTolowerCase = criteriaBuilder.lower(root.get("pregunta"));
-            Predicate preguntaLikePredicate = criteriaBuilder.like(preguntaTolowerCase, "%" + pregunta.toLowerCase() + "%");
-            predicates.add(preguntaLikePredicate);
-        }
-
-        if (StringUtils.isNotBlank(respuesta)) {
-            Expression<String> respuestaTolowerCase = criteriaBuilder.lower(root.get("respuesta"));
-            Predicate respuestaLikePredicate = criteriaBuilder.like(respuestaTolowerCase, "%" + respuesta.toLowerCase() + "%");
-            predicates.add(respuestaLikePredicate);
-        }
-
         if (acudiente != null) { // Solo agrega el predicado si acudiente no es nulo
             if (acudiente) {
                 predicates.add(criteriaBuilder.isTrue(root.get("acudiente")));
@@ -163,30 +148,23 @@ public class SearchUserSpecification implements Specification<User> {
             }
         }
 
-        if (StringUtils.isNotBlank(username)) {
-            Expression<String> usernameTolowerCase = criteriaBuilder.lower(root.get("username"));
-            Predicate usernameLikePredicate = criteriaBuilder.like(usernameTolowerCase, "%" + username.toLowerCase() + "%");
-            predicates.add(usernameLikePredicate);
-        }
-
-        if (StringUtils.isNotBlank(password)) {
-            Expression<String> passwordTolowerCase = criteriaBuilder.lower(root.get("password"));
-            Predicate passwordLikePredicate = criteriaBuilder.like(passwordTolowerCase, "%" + password.toLowerCase() + "%");
-            predicates.add(passwordLikePredicate);
-        }
-
         if (StringUtils.isNotBlank(estado)) {
             Expression<String> estadoTolowerCase = criteriaBuilder.lower(root.get("estado"));
             Predicate estadoLikePredicate = criteriaBuilder.like(estadoTolowerCase, "%" + estado.toLowerCase() + "%");
             predicates.add(estadoLikePredicate);
         }
-          if (StringUtils.isNotBlank(role)) {
-          Join<User, RoleEntity> rolesJoin = root.join("roles");
-          Predicate rolePredicate = criteriaBuilder.equal(rolesJoin.get("rol"), role.toLowerCase());
-          predicates.add(rolePredicate);
-          }
+        if (StringUtils.isNotBlank(role) && "ALUMNO".equalsIgnoreCase(role)) {
+            Join<User, RoleEntity> rolesJoin = root.join("roles");
+            Predicate rolePredicate = criteriaBuilder.equal(criteriaBuilder.lower(rolesJoin.get("name")), "alumno");
+            predicates.add(rolePredicate);
+        } else {
+            // Si el rol no es "ALUMNO", retornamos una condición que no coincida con ningún usuario
+            predicates.add(criteriaBuilder.disjunction()); // Esto hace que la consulta devuelva cero resultados
+        }
         
           return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
-}
+    }
+ 
+
 

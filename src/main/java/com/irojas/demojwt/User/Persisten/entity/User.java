@@ -16,6 +16,7 @@ import com.irojas.demojwt.Roles.Persisten.Entity.RoleEntity;
 import com.irojas.demojwt.Utilities.Enum.DoctypeEnum;
 import com.irojas.demojwt.Utilities.Enum.GenderEnum;
 import com.irojas.demojwt.Utilities.Enum.QuestionEnum;
+import com.irojas.demojwt.Utilities.Enum.RoleEnum;
 import com.irojas.demojwt.Utilities.Enum.StateEnum;
 
 import jakarta.persistence.Basic;
@@ -42,7 +43,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name="usuario", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,5 +151,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+  
 
 }

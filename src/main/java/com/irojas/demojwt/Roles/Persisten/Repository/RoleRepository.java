@@ -10,6 +10,8 @@ import com.irojas.demojwt.Utilities.Enum.RoleEnum;
 
 public interface RoleRepository extends JpaRepository <RoleEntity, Long> {
 
-	Optional<RoleEntity> findByRol(RoleEnum rol);
+	Optional<RoleEntity> findByRol(RoleEntity roleEnum);
+
+    Optional<RoleEntity> findByRol(RoleEnum roleEnum);
 
 }
