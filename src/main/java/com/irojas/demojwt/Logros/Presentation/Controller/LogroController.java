@@ -26,13 +26,14 @@ public class LogroController {
     @Autowired
     private ILogroService logroService;
 
-    @PostMapping
+
+    @PostMapping("/create")
     public ResponseEntity<LogroEntity> createLogro(@RequestBody LogroDTO logroDTO) {
         LogroEntity newLogro = logroService.createLogro(logroDTO);
         return new ResponseEntity<>(newLogro, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("actualizar/{id}")
     public ResponseEntity<LogroEntity> updateLogro(@PathVariable Long id, @RequestBody LogroDTO logroDTO) {
         LogroEntity updatedLogro = logroService.updateLogro(id, logroDTO);
         return new ResponseEntity<>(updatedLogro, HttpStatus.OK);

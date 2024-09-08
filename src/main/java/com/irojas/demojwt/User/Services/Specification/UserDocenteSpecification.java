@@ -32,14 +32,8 @@ public class UserDocenteSpecification implements Specification<User> {
     private String nombreDos;
     private String apellidoUno;
     private String apellidoDos;
-    private String docType;
     private String documento;
-    private Date fechaExp;
-    private String lugarExp;
-    private Date fechaNaci;
-    private String lugarNaci;
     private String edad;
-    private String tipoSangre;
     private String sexo;
     private String correo;
     private String telefono;
@@ -78,44 +72,12 @@ public class UserDocenteSpecification implements Specification<User> {
             predicates.add(apellidoLikePredicate);
         }
 
-        if (StringUtils.isNotBlank(docType)) {
-            Expression<String> docTypeTolowerCase = criteriaBuilder.lower(root.get("docType"));
-            Predicate docTypeLikePredicate = criteriaBuilder.like(docTypeTolowerCase, "%" + docType.toLowerCase() + "%");
-            predicates.add(docTypeLikePredicate);
-        }
-
         if (StringUtils.isNotBlank(documento)) {
             predicates.add(criteriaBuilder.equal(root.get("documento"), documento));
         }
 
-        if (fechaExp != null) {
-            predicates.add(criteriaBuilder.equal(root.get("fechaExp"), fechaExp));
-        }
-
-        if (StringUtils.isNotBlank(lugarExp)) {
-            Expression<String> lugarTolowerCase = criteriaBuilder.lower(root.get("lugarExp"));
-            Predicate lugarLikePredicate = criteriaBuilder.like(lugarTolowerCase, "%" + lugarExp.toLowerCase() + "%");
-            predicates.add(lugarLikePredicate);
-        }
-
-        if (fechaNaci != null) {
-            predicates.add(criteriaBuilder.equal(root.get("fechaNaci"), fechaNaci));
-        }
-
-        if (StringUtils.isNotBlank(lugarNaci)) {
-            Expression<String> lugarTolowerCase = criteriaBuilder.lower(root.get("lugarNaci"));
-            Predicate lugarLikePredicate = criteriaBuilder.like(lugarTolowerCase, "%" + lugarNaci.toLowerCase() + "%");
-            predicates.add(lugarLikePredicate);
-        }
-
         if (StringUtils.isNotBlank(edad)) {
             predicates.add(criteriaBuilder.equal(root.get("edad"), edad));
-        }
-
-        if (StringUtils.isNotBlank(tipoSangre)) {
-            Expression<String> tipoSangreTolowerCase = criteriaBuilder.lower(root.get("tipoSangre"));
-            Predicate tipoSangreLikePredicate = criteriaBuilder.like(tipoSangreTolowerCase, "%" + tipoSangre.toLowerCase() + "%");
-            predicates.add(tipoSangreLikePredicate);
         }
 
         if (StringUtils.isNotBlank(sexo)) {
@@ -155,7 +117,7 @@ public class UserDocenteSpecification implements Specification<User> {
         }
         if (StringUtils.isNotBlank(role) && "ALUMNO".equalsIgnoreCase(role)) {
             Join<User, RoleEntity> rolesJoin = root.join("roles");
-            Predicate rolePredicate = criteriaBuilder.equal(criteriaBuilder.lower(rolesJoin.get("name")), "alumno");
+            Predicate rolePredicate = criteriaBuilder.equal(criteriaBuilder.lower(rolesJoin.get("rol")), "alumno");
             predicates.add(rolePredicate);
         } else {
             // Si el rol no es "ALUMNO", retornamos una condición que no coincida con ningún usuario

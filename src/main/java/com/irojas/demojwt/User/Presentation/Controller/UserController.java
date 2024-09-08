@@ -52,7 +52,7 @@ public class UserController {
     }
     
     @GetMapping("/consultar")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> findAll(
             @RequestParam(required = false) String nombreUno,
             @RequestParam(required = false) String nombreDos,
@@ -96,20 +96,14 @@ public class UserController {
 
     // El siguiente endpoint solo filtrara a los usuarios por Alumno para las pantallas de Docente 
     @GetMapping("/consultar/docente")
-    @PreAuthorize("hasRole('ROLE_DOCENTE')")
+    @PreAuthorize("hasRole('DOCENTE')")
     public ResponseEntity<List<User>> findAll(
         @RequestParam(required = false) String nombreUno,
         @RequestParam(required = false) String nombreDos,
         @RequestParam(required = false) String apellidoUno,
         @RequestParam(required = false) String apellidoDos,
-        @RequestParam(required = false) String docType,
         @RequestParam(required = false) String documento,
-        @RequestParam(required = false) Date fechaExp,
-        @RequestParam(required = false) String lugarExp,
-        @RequestParam(required = false) Date fechaNaci,
-        @RequestParam(required = false) String lugarNaci,
         @RequestParam(required = false) String edad,
-        @RequestParam(required = false) String tipoSangre,
         @RequestParam(required = false) String sexo,
         @RequestParam(required = false) String correo,
         @RequestParam(required = false) String telefono,
@@ -127,14 +121,8 @@ public class UserController {
                 .nombreDos(nombreDos)
                 .apellidoUno(apellidoUno)
                 .apellidoDos(apellidoDos)
-                .docType(docType)
                 .documento(documento)
-                .fechaExp(fechaExp)
-                .lugarExp(lugarExp)
-                .fechaNaci(fechaNaci)
-                .lugarNaci(lugarNaci)
                 .edad(edad)
-                .tipoSangre(tipoSangre)
                 .sexo(sexo)
                 .correo(correo)
                 .telefono(telefono)

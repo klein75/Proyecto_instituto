@@ -42,5 +42,5 @@ public class RegisterRequest {
     private String respuesta;
     private boolean acudiente;
     private StateEnum estado;
-    private Set<Long> roleIds;
+    private Set<RoleEnum> roleNames;
 }

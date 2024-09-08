@@ -73,10 +73,14 @@ public class AuthService {
 
 
         // asigna roles los roles
-            Set<RoleEntity> roles = request.getRoleIds().stream()
-            .map(roleId -> roleRepository.findById(roleId)
-                .orElseThrow(() -> new RuntimeException("Role not found")))
-            .collect(Collectors.toSet());
+        Set<RoleEntity> roles = new HashSet<>();
+        if (request.getRoleNames() != null) {
+            for (RoleEnum roleEnum : request.getRoleNames()) {
+                RoleEntity role = roleRepository.findByRol(roleEnum)
+                        .orElseThrow(() -> new RuntimeException("Role not found with name: " + roleEnum));
+                roles.add(role);
+            }
+        }
         user.setRoles(roles);
 
 

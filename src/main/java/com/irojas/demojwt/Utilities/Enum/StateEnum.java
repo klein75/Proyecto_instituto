@@ -4,5 +4,10 @@ public enum StateEnum {
     ACTIVO,
     INACTIVO,
     SUSPENDIDO,
-    BLOQUEADO,
+    BLOQUEADO,;
+
+    String toLowerCase() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toLowerCase'");
+    }
 }
