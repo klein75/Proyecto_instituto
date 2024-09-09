@@ -20,14 +20,17 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authProvider;
+    private final CorsConfig corsConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
     {
         return http
+            
             .csrf(csrf -> 
                 csrf
                 .disable())
+                .cors(cors -> cors.configurationSource(corsConfig.corsConfigurationSource()))
             .authorizeHttpRequests(authRequest ->
               authRequest
                 .requestMatchers("/auth/**").permitAll()
