@@ -23,8 +23,7 @@ public class NewsServiceImpl  implements INewsService{
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ModelMapper modelMapper; 
+    private ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public List<NewsDto> getAllNews() {
