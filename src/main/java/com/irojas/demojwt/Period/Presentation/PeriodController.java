@@ -37,7 +37,7 @@ public class PeriodController {
         return ResponseEntity.ok(periods);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("actulizar/{id}")
     public ResponseEntity<PeriodEntity> updatePeriod(@PathVariable Long id, @RequestBody PeriodEntity updatedPeriod) {
         PeriodEntity period = periodService.updatePeriod(id, updatedPeriod);
         if (period != null) {
@@ -46,7 +46,7 @@ public class PeriodController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deletePeriod(@PathVariable Long id) {
         periodService.deletePeriod(id);
         return ResponseEntity.noContent().build();
