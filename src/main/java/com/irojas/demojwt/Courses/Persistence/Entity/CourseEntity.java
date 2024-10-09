@@ -42,5 +42,6 @@ public class CourseEntity {
     @Column(name = "estado")
     private StateEnum state;
 
-    // este es una mensaje para poder realiza un commit en el repositorio
+    // este es un mensaje 
+// esta mierda no sirve no actualiza la maldita rama
 }
