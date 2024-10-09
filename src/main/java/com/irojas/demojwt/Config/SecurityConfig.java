@@ -36,7 +36,6 @@ public class SecurityConfig {
               authRequest
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/api/**").permitAll()
-
                 .requestMatchers(
                     "/auth/**",
                     "/v2/api-docs",

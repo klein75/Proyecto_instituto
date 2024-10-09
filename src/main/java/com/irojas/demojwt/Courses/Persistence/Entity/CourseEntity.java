@@ -32,7 +32,7 @@ public class CourseEntity {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "descripcion")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "tipo")
@@ -41,4 +41,7 @@ public class CourseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private StateEnum state;
+
+    // este es un mensaje 
+// esta mierda no sirve no actualiza la maldita rama
 }
