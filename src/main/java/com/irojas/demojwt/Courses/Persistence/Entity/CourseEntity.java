@@ -32,7 +32,7 @@ public class CourseEntity {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "descripcion")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "tipo")
