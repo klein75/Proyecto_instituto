@@ -27,8 +27,8 @@ public class CourseServiceImpl implements IServicesCourse {
     }
 
     @Override
-    public Optional<CourseEntity> getCourseByCourse(String course) {
-        return courseRepository.findByCourse(course);
+    public Optional<CourseEntity> getCourseByName(String Name) {
+        return courseRepository.findByName(Name);
     }
 
     @Override
@@ -36,10 +36,6 @@ public class CourseServiceImpl implements IServicesCourse {
         return courseRepository.findByDescription(description);
     }
 
-    @Override
-    public Optional<CourseEntity> getCourseByCycle(String cycle) {
-        return courseRepository.findByCourse(cycle);
-    }
 
     @Override
     public Optional<CourseEntity> getCourseByType(String type) {
@@ -56,9 +52,8 @@ public class CourseServiceImpl implements IServicesCourse {
         Optional<CourseEntity> existingCouse = courseRepository.findById(id);
         if(existingCouse.isPresent()) {
             CourseEntity updatedCourse = existingCouse.get();
-            updatedCourse.setCourse(course.getCourse());
+            updatedCourse.setName(course.getName());
             updatedCourse.setDescription(course.getDescription());
-            updatedCourse.setCycle(course.getCycle());
             updatedCourse.setType(course.getType());
             updatedCourse.setState(course.getState());
             return courseRepository.save(updatedCourse);}

@@ -9,9 +9,9 @@ public interface IServicesCourse {
 
     CourseEntity saveCourse(CourseEntity course);
     Optional<CourseEntity> getCourseById(Long id);
-    Optional<CourseEntity> getCourseByCourse(String course);
+    Optional<CourseEntity> getCourseByName(String Name);
     Optional<CourseEntity> getCourseByDescription(String description);
-    Optional<CourseEntity> getCourseByCycle(String cycle);
+  
     Optional<CourseEntity> getCourseByType(String type);
     List<CourseEntity> getAllCourses();
     CourseEntity updateCourse(Long id, CourseEntity course);
