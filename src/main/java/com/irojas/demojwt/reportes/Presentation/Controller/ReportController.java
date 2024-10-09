@@ -24,7 +24,7 @@ public class ReportController {
     @Autowired
     private IServiceReport serviceReport;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<ReportEntity> getAllReports() {
         return serviceReport.findAll();
     }
@@ -34,19 +34,19 @@ public class ReportController {
         return serviceReport.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ReportEntity> createReport(@RequestBody ReportEntity report) {
         ReportEntity createdReport = serviceReport.save(report);
         return new ResponseEntity<>(createdReport, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/actulizar/{id}")
     public ResponseEntity<ReportEntity> updateReport(@PathVariable Long id, @RequestBody ReportEntity report) {
         ReportEntity updatedReport = serviceReport.update(id, report);
         return new ResponseEntity<>(updatedReport, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
         serviceReport.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
