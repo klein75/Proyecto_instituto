@@ -38,20 +38,14 @@ public class CourseController {
     }
 
     @GetMapping("/course/{course}")
-    public ResponseEntity<CourseEntity> getCourseByCourse(@PathVariable String course) {
-        Optional<CourseEntity> courseEntity = courseService.getCourseByCourse(course);
+    public ResponseEntity<CourseEntity> getCourseByCourse(@PathVariable String name) {
+        Optional<CourseEntity> courseEntity = courseService.getCourseByName(name);
         return courseEntity.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/description/{description}")
     public ResponseEntity<CourseEntity> getCourseByDescription(@PathVariable String description) {
         Optional<CourseEntity> courseEntity = courseService.getCourseByDescription(description);
-        return courseEntity.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/cycle/{cycle}")
-    public ResponseEntity<CourseEntity> getCourseByCycle(@PathVariable String cycle) {
-        Optional<CourseEntity> courseEntity = courseService.getCourseByCycle(cycle);
         return courseEntity.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 

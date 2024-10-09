@@ -29,14 +29,11 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "curso")
-    private String course;
+    @Column(name = "name")
+    private String name;
     
     @Column(name = "descripcion")
     private String description;
-
-    @Column(name = "ciclo")
-    private String cycle;
 
     @Column(name = "tipo")
     private String type;
