@@ -18,19 +18,19 @@ public class OpenCourseController {
     @Autowired
     private IOpenCourseService openCourseService;
 
-    @PostMapping
+    @PostMapping("all")
     public ResponseEntity<OpenCourseEntity> createOpenCourse(@RequestBody OpenCourseEntity openCourse) {
         OpenCourseEntity createdCourse = openCourseService.create(openCourse);
         return new ResponseEntity<>(createdCourse, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("actualizar/{id}")
     public ResponseEntity<OpenCourseEntity> updateOpenCourse(@PathVariable Long id, @RequestBody OpenCourseEntity openCourse) {
         OpenCourseEntity updatedCourse = openCourseService.update(id, openCourse);
         return new ResponseEntity<>(updatedCourse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deleteOpenCourse(@PathVariable Long id) {
         openCourseService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

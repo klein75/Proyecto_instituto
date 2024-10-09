@@ -44,8 +44,8 @@ public class ReportEntity {
     private String comentarios;
 
     @ManyToOne
-    @JoinColumn(name = "estudiante", referencedColumnName = "id", nullable = false)
-    private MatriculaEntity estudiante;
+    @JoinColumn(name = "alumno", referencedColumnName = "id", nullable = false)
+    private MatriculaEntity alumno;
 
     @ManyToOne
     @JoinColumn(name = "materia", referencedColumnName = "id", nullable = false)

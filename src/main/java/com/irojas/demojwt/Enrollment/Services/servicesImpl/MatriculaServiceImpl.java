@@ -93,6 +93,9 @@ public class MatriculaServiceImpl implements IMatriculaService {
         matriculaRepository.deleteById(id);
     }
 
+
+
+    
     public MatriculaEntity createFromDto(MatriculaRequestDto matriculaDto) {
         // Buscar el usuario por nombre y apellido
         MatriculaEntity matriculaEntity = userRepository.findByNombreUnoAndApellidoUno(matriculaDto.getNombreUno(), matriculaDto.getApellidoUno())
