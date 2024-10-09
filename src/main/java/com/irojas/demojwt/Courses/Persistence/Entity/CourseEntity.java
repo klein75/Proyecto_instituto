@@ -41,4 +41,6 @@ public class CourseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private StateEnum state;
+
+    // este es una mensaje para poder realiza un commit
 }
