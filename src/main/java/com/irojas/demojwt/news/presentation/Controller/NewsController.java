@@ -45,13 +45,13 @@ public class NewsController {
     }
 
    
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public ResponseEntity<NewsDto> updateNews(@PathVariable Long id, @RequestBody NewsDto newsDto) {
         NewsDto updatedNews = newsService.updateNews(id, newsDto);
         return ResponseEntity.ok(updatedNews);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
         newsService.deleteNews(id);
         return ResponseEntity.noContent().build();

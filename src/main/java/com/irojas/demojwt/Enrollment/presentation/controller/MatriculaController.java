@@ -82,7 +82,7 @@ public class MatriculaController {
     }
 
     // Crear una nueva matrícula
-    @PostMapping
+    @PostMapping("create")
     public ResponseEntity<MatriculaEntity> createMatricula(@RequestBody MatriculaEntity matricula) {
         MatriculaEntity nuevaMatricula = matriculaService.create(matricula);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaMatricula);
