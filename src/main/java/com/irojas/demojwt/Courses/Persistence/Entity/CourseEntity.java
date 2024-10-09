@@ -42,5 +42,5 @@ public class CourseEntity {
     @Column(name = "estado")
     private StateEnum state;
 
-    // este es una mensaje para poder realiza un commit
+    // este es una mensaje para poder realiza un commit en el repositorio
 }
