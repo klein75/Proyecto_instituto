@@ -39,7 +39,7 @@ public class ServiceReportImpl implements IServiceReport {
         existingReport.setNota(updatedReport.getNota());
         existingReport.setFallas(updatedReport.getFallas());
         existingReport.setComentarios(updatedReport.getComentarios());
-        existingReport.setEstudiante(updatedReport.getEstudiante());
+        existingReport.setAlumno(updatedReport.getAlumno());
         existingReport.setMateria(updatedReport.getMateria());
         existingReport.setPeriodo(updatedReport.getPeriodo());
         existingReport.setEstado(updatedReport.getEstado());

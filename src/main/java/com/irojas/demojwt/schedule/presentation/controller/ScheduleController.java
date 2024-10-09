@@ -22,7 +22,7 @@ public class ScheduleController {
     @Autowired
     private IScheduleService scheduleService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ScheduleEntity> createSchedule(@RequestBody ScheduleEntity schedule) {
         ScheduleEntity createdSchedule = scheduleService.createSchedule(schedule);
         return new ResponseEntity<>(createdSchedule, HttpStatus.CREATED);
@@ -34,13 +34,13 @@ public class ScheduleController {
         return schedule.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<ScheduleEntity>> getAllSchedules() {
         List<ScheduleEntity> schedules = scheduleService.getAllSchedules();
         return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("actulizar/{id}")
     public ResponseEntity<ScheduleEntity> updateSchedule(@PathVariable Long id, @RequestBody ScheduleEntity schedule) {
         ScheduleEntity updatedSchedule = scheduleService.updateSchedule(id, schedule);
         if (updatedSchedule != null) {
@@ -50,7 +50,7 @@ public class ScheduleController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long id) {
         scheduleService.deleteSchedule(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

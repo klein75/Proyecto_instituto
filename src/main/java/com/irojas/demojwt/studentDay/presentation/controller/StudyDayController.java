@@ -26,7 +26,7 @@ public class StudyDayController {
     private IStudyDayServices studyDayServices;
 
     // Endpoint para crear un nuevo StudyDay
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<StudyDayDto> createStudyDay(@RequestBody StudyDayDto studyDayDto) {
         StudyDayDto createdStudyDay = studyDayServices.saveStudyDay(studyDayDto);
         return new ResponseEntity<>(createdStudyDay, HttpStatus.CREATED);
@@ -57,14 +57,14 @@ public class StudyDayController {
     }
 
     // Endpoint para obtener todos los StudyDays
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<StudyDayDto>> getAllStudyDays() {
         List<StudyDayDto> studyDays = studyDayServices.findAllStudyDay();
         return new ResponseEntity<>(studyDays, HttpStatus.OK);
     }
 
     // Endpoint para actualizar un StudyDay
-    @PutMapping("/{id}")
+    @PutMapping("actualizar/{id}")
     public ResponseEntity<StudyDayDto> updateStudyDay(
             @PathVariable Long id,
             @RequestBody StudyDayDto studyDayDto) {
@@ -74,7 +74,7 @@ public class StudyDayController {
     }
 
     // Endpoint para eliminar un StudyDay
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public ResponseEntity<Void> deleteStudyDay(@PathVariable Long id) {
         studyDayServices.deleteStudyDay(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
