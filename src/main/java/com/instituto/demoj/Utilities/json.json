@@ -1,0 +1,31 @@
+
+
+{
+  "id": 0,
+  "name": "string",
+  "secondName": "string",
+  "lastName": "string",
+  "secondLastName": "string",
+  "docType": "cedula",
+  "document": "string",
+  "dateExp": "2024-10-18T04:57:30.533Z",
+  "placeExp": "string",
+  "birthDate": "2024-10-18T04:57:30.533Z",
+  "birthPlace": "string",
+  "age": "5",
+  "bloodType": "string",
+  "gender": "MASCULINO",
+  "email": "string",
+  "phone": "42078949597",
+  "nickname": "string",
+  "image": "string",
+  "question": "string",
+  "answer": "string",
+  "hasGuardian": true,
+  "username": "string",
+  "password": "w26jRIz761asV@x3U6*m17h4e!EnXiFF0u936g1X*X",
+  "state": "activo",
+  "roles": [
+    "ADMIN"
+  ]
+}
