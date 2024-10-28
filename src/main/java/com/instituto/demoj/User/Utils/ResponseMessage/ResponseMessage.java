@@ -1,4 +1,4 @@
-package com.instituto.demoj.Utilities.ResponseMessage;
+package com.instituto.demoj.User.Utils.ResponseMessage;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

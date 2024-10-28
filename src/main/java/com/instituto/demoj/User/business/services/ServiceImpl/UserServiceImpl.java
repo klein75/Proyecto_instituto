@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 import com.instituto.demoj.Roles.Persisten.Repository.RoleRepository;
 import com.instituto.demoj.Roles.domain.Entity.RoleEntity;
 import com.instituto.demoj.User.Persistence.UserRepository;
+import com.instituto.demoj.User.Utils.ResponseMessage.ResponseMessage;
 import com.instituto.demoj.User.business.mapper.UserMapper;
 import com.instituto.demoj.User.business.services.IUserService;
 import com.instituto.demoj.User.domain.dto.generalUserDto;
 import com.instituto.demoj.User.domain.dto.teacherUserDto;
 import com.instituto.demoj.User.domain.entity.User;
 import com.instituto.demoj.Utilities.Enum.RoleEnum;
-import com.instituto.demoj.Utilities.ResponseMessage.ResponseMessage;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;

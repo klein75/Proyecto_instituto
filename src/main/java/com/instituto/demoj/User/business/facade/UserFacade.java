@@ -3,9 +3,9 @@ package com.instituto.demoj.User.business.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.instituto.demoj.User.Utils.ResponseMessage.ResponseMessage;
 import com.instituto.demoj.User.business.services.IUserService;
 import com.instituto.demoj.User.domain.dto.generalUserDto;
-import com.instituto.demoj.Utilities.ResponseMessage.ResponseMessage;
 
 @Service
 public class UserFacade {

@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.instituto.demoj.Roles.domain.Entity.RoleEntity;
-import com.instituto.demoj.Utilities.Enum.DoctypeEnum;
+import com.instituto.demoj.User.Utils.DoctypeEnum;
 import com.instituto.demoj.Utilities.Enum.GenderEnum;
 import com.instituto.demoj.Utilities.Enum.QuestionEnum;
 
@@ -49,67 +49,60 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nombre_uno")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
 
-    @Column(name = "nombre_dos")
-    private String secondName;
+    @Column(name = "sec_name")
+    private String secName;
 
-    @Column(name = "apellido_uno")
-    private String lastName;
+    @Column(name = "surname")
+    private String surName;
 
-    @Column(name = "apellido_dos")
-    private String secondLastName;
+    @Column(name = "sec_surname")
+    private String secSurname;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_docu")
+    @Column(name = "doc_type")
     private DoctypeEnum docType;
 
-    @Column(name = "documento")
+    @Column(name = "document")
     private String document;
 
-    @Column(name = "fecha_exp")
-    private Date dateExp;
+    @Column(name = "exp_date")
+    private Date expDate;
 
-    @Column(name = "lugar_exp")
-    private String placeExp;
+    @Column(name = "ExpSite")
+    private String expSite;
 
-    @Column(name = "fecha_naci")
-    private Date birthDate;
+    @Column(name = "birthdate")
+    private Date birthdate;
 
-    @Column(name = "lugar_naci")
-    private String birthPlace;
+    @Column(name = "birthplace")
+    private String birthplace;
 
-    @Column(name = "edad")
-    private String age;
-
-    @Column(name = "tipo_sangre")
+    @Column(name = "bloodType")
     private String bloodType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sexo")
-    private GenderEnum gender;
+    @Column(name = "gender")
+    private String gender;
 
-    @Column(name = "correo")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "telefono")
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "apodo")
+    @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "imagen")
+    @Column(name = "image")
     private String image;
 
-    @Column(name = "pregunta")
+    @Column(name = "question")
     private String question;
 
-    @Column(name = "respuesta")
+    @Column(name = "answer")
     private String answer;
-
-    @Column(name = "acudiente")
-    private boolean hasGuardian;
 
     @Column(name = "username", unique = true)
     private String username;

@@ -4,7 +4,8 @@ public enum StateEnum {
     activo,
     inactivo,
     suspendido,
-    bloqueado;
+    bloqueado,
+    inhabilitado
 
   
 }

@@ -3,8 +3,7 @@ package com.instituto.demoj.User.domain.dto;
 import java.util.Date;
 import java.util.Set;
 
-import com.instituto.demoj.Utilities.Enum.DoctypeEnum;
-import com.instituto.demoj.Utilities.Enum.GenderEnum;
+import com.instituto.demoj.User.Utils.DoctypeEnum;
 import com.instituto.demoj.Utilities.Enum.RoleEnum;
 import com.instituto.demoj.Utilities.Enum.StateEnum;
 
@@ -12,8 +11,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,14 +27,14 @@ public class generalUserDto {
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio.")
-    private String name;
+    private String firstName;
 
-    private String secondName;
+    private String secName;
 
     @NotBlank(message = "El primer apellido es obligatorio.")
-    private String lastName;
+    private String surName;
 
-    private String secondLastName;
+    private String secSurname;
 
     @NotNull(message = "El tipo de documento es obligatorio.")
     private DoctypeEnum docType;
@@ -46,26 +43,22 @@ public class generalUserDto {
     @Size(min = 5, max = 20, message = "El documento debe tener entre 5 y 20 caracteres.")
     private String document;
 
-    @PastOrPresent(message = "La fecha de expedición debe ser en el pasado o presente.")
-    private Date dateExp;
+    @NotBlank(message = "La fecha de experdicion es obligatoria.")
+    private Date expDate;
 
     @NotBlank(message = "El lugar de expedición es obligatorio.")
-    private String placeExp;
+    private String expSite;
 
-    @Past(message = "La fecha de nacimiento debe ser en el pasado.")
+    @NotBlank(message = "La fecha de nacimiento debe ser obligatoria")
     private Date birthDate;
 
     @NotBlank(message = "El lugar de nacimiento es obligatorio.")
     private String birthPlace;
 
-    @NotNull(message = "La edad es obligatoria.")
-    @Pattern(regexp = "^\\d{1,3}$", message = "La edad debe ser un número válido.")
-    private String age;
-
     @NotBlank(message = "El tipo de sangre es obligatorio.")
     private String bloodType;
 
-    private GenderEnum gender;
+    private String gender;
 
     @NotBlank(message = "El correo electrónico es obligatorio.")
     @Email(message = "El correo electrónico debe tener un formato válido.")
@@ -76,15 +69,16 @@ public class generalUserDto {
     private String phone;
 
     @Size(max = 50, message = "El apodo no debe exceder los 20 caracteres.")
+    @NotBlank(message = "el apodo de usuario es obligatorio")
     private String nickname;
 
     private String image;
 
+    @NotBlank(message = "La pregunta de recuperacion es obligatoria")
     private String question;
 
+    @NotBlank(message = "la respuesta de recuperacion es obligatoria.")
     private String answer;
-
-    private boolean hasGuardian;
 
     @NotBlank(message = "El nombre de usuario es obligatorio.")
     @Size(min = 5, max = 20, message = "El nombre de usuario debe tener entre 5 y 20 caracteres.")
