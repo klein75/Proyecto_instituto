@@ -7,9 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.instituto.demoj.User.Utils.ResponseMessage.ResponseMessage;
 import com.instituto.demoj.User.business.facade.UserFacade;
 import com.instituto.demoj.User.domain.dto.generalUserDto;
-import com.instituto.demoj.Utilities.ResponseMessage.ResponseMessage;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -17,15 +17,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/users") // Asegúrate de establecer el mapeo correcto
-@Validated // Si estás utilizando validaciones
+@RequestMapping("api/users") 
+@Validated 
 public class UserController {
 
     private final UserFacade userFacade;
 
     @Autowired
     public UserController(UserFacade userFacade) {
-        this.userFacade = userFacade; // Asigna la instancia correcta
+        this.userFacade = userFacade; 
     }
 
     @Operation(summary = "Crear usuario")
@@ -66,7 +66,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado"),
             @ApiResponse(responseCode = "400", description = "Error en la validación del usuario")
     })
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ResponseMessage> updateUser(@PathVariable Long id, @Valid @RequestBody generalUserDto generalUserDto) {
         ResponseMessage response = userFacade.updateUser(id, generalUserDto);
     
@@ -85,7 +85,7 @@ public class UserController {
             @ApiResponse(responseCode = "204", description = "Usuario eliminado correctamente"),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         ResponseMessage response = userFacade.deleteUser(id);
     
@@ -101,7 +101,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Usuario encontrado"),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseMessage> getUserById(@PathVariable Long id) {
         ResponseMessage response = userFacade.getUserById(id);
     
@@ -117,7 +117,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de usuarios obtenida")
     })
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<ResponseMessage> getAllUsers() {
         ResponseMessage response = userFacade.getAllUsers();
         return ResponseEntity.ok(response);
@@ -129,7 +129,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "Lista de alumnos obtenida"),
             @ApiResponse(responseCode = "404", description = "No se encontraron alumnos")
     })
-    @GetMapping("/alumnos")
+    @GetMapping("/get/alumnos")
     public ResponseEntity<ResponseMessage> getAlumnos() {
         ResponseMessage response = userFacade.getAlumnos();
     

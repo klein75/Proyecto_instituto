@@ -2,9 +2,8 @@ package com.instituto.demoj.User.business.services;
 
 
 
+import com.instituto.demoj.User.Utils.ResponseMessage.ResponseMessage;
 import com.instituto.demoj.User.domain.dto.generalUserDto;
-
-import com.instituto.demoj.Utilities.ResponseMessage.ResponseMessage;
 
 public interface IUserService {
 
