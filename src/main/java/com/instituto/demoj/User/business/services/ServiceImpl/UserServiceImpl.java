@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.instituto.demoj.Auth.AuthResponse;
+import com.instituto.demoj.Jwt.JwtService;
 import com.instituto.demoj.Roles.Persisten.Repository.RoleRepository;
 import com.instituto.demoj.Roles.domain.Entity.RoleEntity;
 import com.instituto.demoj.User.Persistence.UserRepository;
@@ -34,15 +36,17 @@ public class UserServiceImpl implements IUserService {
     private final Validator validator;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtServices;
 
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper,
             RoleRepository roleRepository, Validator validator,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder, JwtService jwtServices) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.roleRepository = roleRepository;
         this.validator = validator;
         this.passwordEncoder = passwordEncoder;
+        this.jwtServices = jwtServices;
     }
 
     @Override
@@ -83,6 +87,10 @@ public class UserServiceImpl implements IUserService {
 
             // Guardar el usuario
             user = userRepository.save(user);
+            // Generar el token 
+            String token = jwtServices.getToken(user); 
+            // Retornar la respuesta con el token 
+            AuthResponse authResponse = AuthResponse.builder() .token(token) .build();
 
             return new ResponseMessage(true, "Usuario guardado correctamente", user);
 

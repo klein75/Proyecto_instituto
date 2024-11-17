@@ -30,12 +30,11 @@ public class CourseDto {
     @NotBlank(message = "La duración del curso es obligatioria")
     private String duration;
 
-    @NotBlank(message = "El titulo del curso es obligatorio")
     private TitleEnum title;
 
-    @NotBlank(message = "El tipo del curso es obligatorio")
+
     private TypeEnum type;
 
-    @NotBlank(message = "El estado del curso es obligatorio")
+   
     private StateEnum state;
 }

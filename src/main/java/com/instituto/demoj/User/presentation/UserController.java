@@ -28,37 +28,20 @@ public class UserController {
         this.userFacade = userFacade; 
     }
 
-    @Operation(summary = "Crear usuario")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuario creado correctamente"),
-            @ApiResponse(responseCode = "400", description = "Error en la validación del usuario"),
-            @ApiResponse(responseCode = "403", description = "username o email ya existen"),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    })
+   
+    
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createUser(@Valid @RequestBody generalUserDto userDto,
-            BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            StringBuilder errorMessages = new StringBuilder();
+    public ResponseEntity<ResponseMessage> createUser(@Valid @RequestBody generalUserDto userDto, BindingResult bindingResult) {
+         if (bindingResult.hasErrors()) { 
+            StringBuilder errorMessages = new StringBuilder(); 
             bindingResult.getFieldErrors().forEach(error -> {
-                errorMessages.append("Campo: ").append(error.getField())
-                        .append(" - Error: ").append(error.getDefaultMessage()).append("; ");
-            });
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ResponseMessage(false, errorMessages.toString(), null));
-        }
+                 errorMessages.append("Campo: ").append(error.getField()) 
+                 .append(" - Error: ").append(error.getDefaultMessage()).append("; "); });
+                  return ResponseEntity.status(HttpStatus.BAD_REQUEST) 
+                  .body(new ResponseMessage(false, errorMessages.toString(), null)); } 
+                  return userFacade.createUser(userDto); }
 
-        ResponseMessage responseMessage = userFacade.createUser(userDto);
 
-        if (responseMessage.isSuccess()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
-        } else if (responseMessage.getMessage().contains("ya existe")) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseMessage);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMessage);
-        }
-    }
 
     @Operation(summary = "Actualizar usuario")
     @ApiResponses(value = {

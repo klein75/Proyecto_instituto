@@ -43,13 +43,13 @@ public class generalUserDto {
     @Size(min = 5, max = 20, message = "El documento debe tener entre 5 y 20 caracteres.")
     private String document;
 
-    @NotBlank(message = "La fecha de experdicion es obligatoria.")
+   
     private Date expDate;
 
     @NotBlank(message = "El lugar de expedición es obligatorio.")
     private String expSite;
 
-    @NotBlank(message = "La fecha de nacimiento debe ser obligatoria")
+ 
     private Date birthDate;
 
     @NotBlank(message = "El lugar de nacimiento es obligatorio.")
