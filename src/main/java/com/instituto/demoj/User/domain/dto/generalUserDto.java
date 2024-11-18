@@ -27,38 +27,9 @@ public class generalUserDto {
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio.")
-    private String firstName;
+    private String Name;
 
-    private String secName;
-
-    @NotBlank(message = "El primer apellido es obligatorio.")
-    private String surName;
-
-    private String secSurname;
-
-    @NotNull(message = "El tipo de documento es obligatorio.")
-    private DoctypeEnum docType;
-
-    @NotBlank(message = "El número de documento es obligatorio.")
-    @Size(min = 5, max = 20, message = "El documento debe tener entre 5 y 20 caracteres.")
-    private String document;
-
-   
-    private Date expDate;
-
-    @NotBlank(message = "El lugar de expedición es obligatorio.")
-    private String expSite;
-
- 
-    private Date birthDate;
-
-    @NotBlank(message = "El lugar de nacimiento es obligatorio.")
-    private String birthPlace;
-
-    @NotBlank(message = "El tipo de sangre es obligatorio.")
-    private String bloodType;
-
-    private String gender;
+    private String lastName;
 
     @NotBlank(message = "El correo electrónico es obligatorio.")
     @Email(message = "El correo electrónico debe tener un formato válido.")
@@ -67,18 +38,6 @@ public class generalUserDto {
     @NotBlank(message = "El número de teléfono es obligatorio.")
     @Pattern(regexp = "^[+]?[0-9]{7,15}$", message = "El teléfono debe ser un número válido.")
     private String phone;
-
-    @Size(max = 50, message = "El apodo no debe exceder los 20 caracteres.")
-    @NotBlank(message = "el apodo de usuario es obligatorio")
-    private String nickname;
-
-    private String image;
-
-    @NotBlank(message = "La pregunta de recuperacion es obligatoria")
-    private String question;
-
-    @NotBlank(message = "la respuesta de recuperacion es obligatoria.")
-    private String answer;
 
     @NotBlank(message = "El nombre de usuario es obligatorio.")
     @Size(min = 5, max = 20, message = "El nombre de usuario debe tener entre 5 y 20 caracteres.")
