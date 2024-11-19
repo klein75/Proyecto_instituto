@@ -44,7 +44,7 @@ public class RProfileController {
 
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<RProfileDto> getProfileById(@PathVariable Long id) {
         return profileRepository.findById(id)
                 .map(profile -> ResponseEntity.ok(modelMapper.map(profile, RProfileDto.class)))
@@ -54,7 +54,7 @@ public class RProfileController {
 
 
 
-    @PostMapping
+    @PostMapping("/create")
 
     public ResponseEntity<RProfile> createProfile(@RequestBody RProfileDto profileDto) {
 
@@ -80,7 +80,7 @@ public class RProfileController {
 
 
 
-    @PutMapping("/{userId}")
+    @PutMapping("update/{userId}")
 
     public ResponseEntity<RProfile> updateProfile(@PathVariable Long userId, @RequestBody RProfileDto profileDto) {
 
@@ -102,7 +102,7 @@ public class RProfileController {
 
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
 
     public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {
 

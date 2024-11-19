@@ -33,7 +33,7 @@ public class RRoleController {
 
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<RRoleDto> getAllRoles() {
         return roleRepository.findAll()
         .stream()
@@ -44,7 +44,7 @@ public class RRoleController {
 
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<RRoleDto> getRoleById(@PathVariable Long id) {
         return roleRepository.findById(id)
                 .map(role -> ResponseEntity.ok(modelMapper.map(role, RRoleDto.class)))
@@ -54,7 +54,7 @@ public class RRoleController {
 
 
 
-    @PostMapping
+    @PostMapping("/create")
 
     public ResponseEntity<RRole> createRole(@RequestBody RRoleDto roleDto) {
 
@@ -68,7 +68,7 @@ public class RRoleController {
 
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
 
     public ResponseEntity<RRole> updateRole(@PathVariable Long id, @RequestBody RRoleDto roleDto) {
 
@@ -90,7 +90,7 @@ public class RRoleController {
 
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
 
     public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
 

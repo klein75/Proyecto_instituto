@@ -12,7 +12,7 @@ import com.instituto.demoj.Modules.Domain.Modules;
 import com.instituto.demoj.Modules.business.facade.ModulesFacade;
 
 @RestController
-@RequestMapping("/api/modules")
+@RequestMapping("/api/fmodules")
 public class ModulesController {
 
     private final ModulesFacade modulesFacade;

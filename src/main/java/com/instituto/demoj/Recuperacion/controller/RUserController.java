@@ -44,7 +44,7 @@ public class RUserController {
                 .collect(Collectors.toList());
     }
     
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<RUserDto> getRUserById(@PathVariable Long id) {
         return userRepository.findById(id)
                 .map(user -> {
@@ -56,7 +56,7 @@ public class RUserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<RUserDto> createRUser(@RequestBody RUserDto userDto) {
         RUser user = modelMapper.map(userDto, RUser.class);
         RRole role = roleRepository.findByRole(userDto.getRole())
@@ -69,7 +69,7 @@ public class RUserController {
         return ResponseEntity.status(201).body(createdUserDto);
     }
     
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<RUserDto> updateRUser(@PathVariable Long id, @RequestBody RUserDto userDto) {
         return userRepository.findById(id)
                 .map(user -> {
@@ -86,7 +86,7 @@ public class RUserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteRUser(@PathVariable Long id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);

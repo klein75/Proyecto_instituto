@@ -33,7 +33,7 @@ public class RModuleController {
 
 
 
-    @GetMapping
+    @GetMapping("/all")
 
     public List<RModuleDto> getAllModules() {
         return moduleRepository.findAll()
@@ -45,7 +45,7 @@ public class RModuleController {
 
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<RModuleDto> getModuleById(@PathVariable Long id) {
         return moduleRepository.findById(id)
                 .map(module -> {
@@ -57,7 +57,7 @@ public class RModuleController {
 
 
 
-    @PostMapping
+    @PostMapping("/create")
 
     public ResponseEntity<RModule> createModule(@RequestBody RModuleDto moduleDto) {
 
@@ -71,7 +71,7 @@ public class RModuleController {
 
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
 
     public ResponseEntity<RModule> updateModule(@PathVariable Long id, @RequestBody RModuleDto moduleDto) {
 
@@ -93,7 +93,7 @@ public class RModuleController {
 
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
 
     public ResponseEntity<Void> deleteModule(@PathVariable Long id) {
 

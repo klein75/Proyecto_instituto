@@ -49,7 +49,7 @@ public class RRoleModuleController {
 
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<RRoleModuleDto> getAllRoleModules() {
         return roleModuleRepository.findAll()
                 .stream()
@@ -57,7 +57,7 @@ public class RRoleModuleController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<RRoleModuleDto> getRoleModuleById(@PathVariable Long id) {
         return roleModuleRepository.findById(id)
                 .map(roleModule -> ResponseEntity.ok(modelMapper.map(roleModule, RRoleModuleDto.class)))
@@ -66,7 +66,7 @@ public class RRoleModuleController {
 
 
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<RRoleModule> createRoleModule(@RequestBody RRoleModuleDto roleModuleDto) {
         RRole role = roleRepository.findById(roleModuleDto.getRoleId())
                 .orElseThrow(() -> new RuntimeException("Role not found with ID: " + roleModuleDto.getRoleId()));
@@ -82,18 +82,37 @@ public class RRoleModuleController {
         return ResponseEntity.ok(savedRoleModule);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RRoleModule> updateRoleModule(@PathVariable Long id, @RequestBody RRoleModuleDto roleModuleDto) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<RRoleModuleDto> updateRoleModule(@PathVariable Long id, @RequestBody RRoleModuleDto roleModuleDto) {
+        // Buscar el RRoleModule existente
         RRoleModule roleModule = roleModuleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("RoleModule not found with ID: " + id));
-
-        // Update roleModule properties based on roleModuleDto (e.g., role, module, etc.)
-
+        
+        // Mapear los cambios desde el DTO a la entidad existente
+        modelMapper.map(roleModuleDto, roleModule);
+        
+        // Si hay relaciones que necesitan actualización, manejar aquí
+        if (roleModuleDto.getRoleId() != null) {
+            RRole role = roleRepository.findById(roleModuleDto.getRoleId())
+                    .orElseThrow(() -> new RuntimeException("Role not found with ID: " + roleModuleDto.getRoleId()));
+            roleModule.setRole(role);
+        }
+    
+        if (roleModuleDto.getModuleId() != null) {
+            RModule module = moduleRepository.findById(roleModuleDto.getModuleId())
+                    .orElseThrow(() -> new RuntimeException("Module not found with ID: " + roleModuleDto.getModuleId()));
+            roleModule.setModule(module);
+        }
+    
+        // Guardar los cambios
         RRoleModule updatedRoleModule = roleModuleRepository.save(roleModule);
-        return ResponseEntity.ok(updatedRoleModule);
+        
+        // Mapear la entidad actualizada al DTO
+        RRoleModuleDto updatedRoleModuleDto = modelMapper.map(updatedRoleModule, RRoleModuleDto.class);
+        return ResponseEntity.ok(updatedRoleModuleDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteRoleModule(@PathVariable Long id) {
         roleModuleRepository.deleteById(id);
         return ResponseEntity.noContent().build();
