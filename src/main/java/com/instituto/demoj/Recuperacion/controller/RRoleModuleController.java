@@ -15,6 +15,7 @@ import com.instituto.demoj.Recuperacion.repository.RRoleModuleRepository;
 import com.instituto.demoj.Recuperacion.repository.RRoleRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 
@@ -49,25 +50,18 @@ public class RRoleModuleController {
 
 
     @GetMapping
-
-    public List<RRoleModule> getAllRoleModules() {
-
-        return roleModuleRepository.findAll();
-
+    public List<RRoleModuleDto> getAllRoleModules() {
+        return roleModuleRepository.findAll()
+                .stream()
+                .map(roleModule -> modelMapper.map(roleModule, RRoleModuleDto.class))
+                .collect(Collectors.toList());
     }
 
-
-
     @GetMapping("/{id}")
-
-    public ResponseEntity<RRoleModule> getRoleModuleById(@PathVariable Long id) {
-
+    public ResponseEntity<RRoleModuleDto> getRoleModuleById(@PathVariable Long id) {
         return roleModuleRepository.findById(id)
-
-                .map(roleModule -> ResponseEntity.ok(roleModule))
-
+                .map(roleModule -> ResponseEntity.ok(modelMapper.map(roleModule, RRoleModuleDto.class)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
 

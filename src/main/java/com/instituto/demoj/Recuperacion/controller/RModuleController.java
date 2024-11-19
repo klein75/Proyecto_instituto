@@ -11,6 +11,7 @@ import com.instituto.demoj.Recuperacion.entity.RModule;
 import com.instituto.demoj.Recuperacion.repository.RModuleRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 
@@ -34,24 +35,24 @@ public class RModuleController {
 
     @GetMapping
 
-    public List<RModule> getAllModules() {
-
-        return moduleRepository.findAll();
+    public List<RModuleDto> getAllModules() {
+        return moduleRepository.findAll()
+        .stream()
+        .map(RModule -> modelMapper.map(RModule,RModuleDto.class))
+        .collect(Collectors.toList());
 
     }
 
 
 
     @GetMapping("/{id}")
-
-    public ResponseEntity<RModule> getModuleById(@PathVariable Long id) {
-
+    public ResponseEntity<RModuleDto> getModuleById(@PathVariable Long id) {
         return moduleRepository.findById(id)
-
-                .map(module -> ResponseEntity.ok(module))
-
+                .map(module -> {
+                    RModuleDto moduleDto = modelMapper.map(module, RModuleDto.class);
+                    return ResponseEntity.ok(moduleDto);
+                })
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
 

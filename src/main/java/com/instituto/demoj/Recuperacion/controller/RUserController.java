@@ -14,6 +14,7 @@ import com.instituto.demoj.Recuperacion.entity.RRole;
 import com.instituto.demoj.Recuperacion.entity.RUser;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 
@@ -32,43 +33,59 @@ public class RUserController {
 
 
     @GetMapping("/all")
-    public List<RUser> getAllRusers() {
-        return userRepository.findAll();
+    public List<RUserDto> getAllRUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(user -> {
+                    RUserDto userDto = modelMapper.map(user, RUserDto.class);
+                    userDto.setRole(user.getRole().getRole()); 
+                    return userDto;
+                })
+                .collect(Collectors.toList());
     }
-
+    
     @GetMapping("/{id}")
-    public ResponseEntity<RUser> getRuserById(@PathVariable Long id) {
+    public ResponseEntity<RUserDto> getRUserById(@PathVariable Long id) {
         return userRepository.findById(id)
-                .map(user -> ResponseEntity.ok(user))
+                .map(user -> {
+
+                    RUserDto userDto = modelMapper.map(user, RUserDto.class);
+                    userDto.setRole(user.getRole().getRole()); 
+                    return ResponseEntity.ok(userDto);
+                })
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
-
+    
     @PostMapping
-    public ResponseEntity<RUser> createRuser(@RequestBody RUserDto userDto) {
+    public ResponseEntity<RUserDto> createRUser(@RequestBody RUserDto userDto) {
         RUser user = modelMapper.map(userDto, RUser.class);
-        RRole role = roleRepository.findById(userDto.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Role not found with ID: " + userDto.getRoleId()));
+        RRole role = roleRepository.findByRole(userDto.getRole())
+                .orElseThrow(() -> new RuntimeException("Role not found with name: " + userDto.getRole()));
         user.setRole(role);
         RUser createdUser = userRepository.save(user);
-        return ResponseEntity.status(201).body(createdUser);
+        RUserDto createdUserDto = modelMapper.map(createdUser, RUserDto.class);
+        createdUserDto.setRole(createdUser.getRole().getRole()); 
+        
+        return ResponseEntity.status(201).body(createdUserDto);
     }
-
+    
     @PutMapping("/{id}")
-    public ResponseEntity<RUser> updateRUser(@PathVariable Long id, @RequestBody RUserDto userDto) {
+    public ResponseEntity<RUserDto> updateRUser(@PathVariable Long id, @RequestBody RUserDto userDto) {
         return userRepository.findById(id)
                 .map(user -> {
                     modelMapper.map(userDto, user);
-                    RRole role = roleRepository.findById(userDto.getRoleId())
-                            .orElseThrow(() -> new RuntimeException("Role not found with ID: " + userDto.getRoleId()));
+                    RRole role = roleRepository.findByRole(userDto.getRole())
+                            .orElseThrow(() -> new RuntimeException("Role not found with name: " + userDto.getRole()));
                     user.setRole(role);
                     RUser updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
+                    RUserDto updatedUserDto = modelMapper.map(updatedUser, RUserDto.class);
+                    updatedUserDto.setRole(updatedUser.getRole().getRole()); 
+                    
+                    return ResponseEntity.ok(updatedUserDto);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
-
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRUser(@PathVariable Long id) {
         if (userRepository.existsById(id)) {
@@ -77,6 +94,5 @@ public class RUserController {
         } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 }

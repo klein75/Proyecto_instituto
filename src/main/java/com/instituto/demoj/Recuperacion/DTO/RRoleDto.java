@@ -4,7 +4,6 @@ import lombok.*;
 @Builder
 public class RRoleDto {
 
-    private Long id;
     private String role;
     private String description;
 

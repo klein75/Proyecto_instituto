@@ -43,7 +43,4 @@ public class RUser {
     @JoinColumn(name = "Roles_id")
     private RRole role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private RProfile profile;
 }

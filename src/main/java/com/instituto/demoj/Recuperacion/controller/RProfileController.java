@@ -11,6 +11,7 @@ import com.instituto.demoj.Recuperacion.repository.RProfileRepository;
 import com.instituto.demoj.Recuperacion.repository.RUserRepositoy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/profile")
 public class RProfileController {
@@ -33,27 +34,23 @@ public class RProfileController {
 
 
 
-    @GetMapping
-
-    public List<RProfile> getAllProfiles() {
-
-        return profileRepository.findAll();
-
+    @GetMapping("/all")
+    public List<RProfileDto> getAllProfiles() {
+        return profileRepository.findAll()
+        .stream()
+        .map(RProfile -> modelMapper.map(RProfile, RProfileDto.class))
+        .collect(Collectors.toList());
     }
 
 
 
     @GetMapping("/{id}")
-
-    public ResponseEntity<RProfile> getProfileById(@PathVariable Long id) {
-
+    public ResponseEntity<RProfileDto> getProfileById(@PathVariable Long id) {
         return profileRepository.findById(id)
-
-                .map(profile -> ResponseEntity.ok(profile))
-
+                .map(profile -> ResponseEntity.ok(modelMapper.map(profile, RProfileDto.class)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
+
 
 
 

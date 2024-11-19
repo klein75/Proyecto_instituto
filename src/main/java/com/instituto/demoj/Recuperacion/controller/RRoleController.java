@@ -11,6 +11,7 @@ import com.instituto.demoj.Recuperacion.entity.RRole;
 import com.instituto.demoj.Recuperacion.repository.RRoleRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 
@@ -33,26 +34,23 @@ public class RRoleController {
 
 
     @GetMapping
-
-    public List<RRole> getAllRoles() {
-
-        return roleRepository.findAll();
+    public List<RRoleDto> getAllRoles() {
+        return roleRepository.findAll()
+        .stream()
+        .map(RRole -> modelMapper.map(RRole, RRoleDto.class))
+        .collect(Collectors.toList());
 
     }
 
 
 
     @GetMapping("/{id}")
-
-    public ResponseEntity<RRole> getRoleById(@PathVariable Long id) {
-
+    public ResponseEntity<RRoleDto> getRoleById(@PathVariable Long id) {
         return roleRepository.findById(id)
-
-                .map(role -> ResponseEntity.ok(role))
-
+                .map(role -> ResponseEntity.ok(modelMapper.map(role, RRoleDto.class)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
-
     }
+
 
 
 

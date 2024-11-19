@@ -11,5 +11,5 @@ public class RUserDto {
      private String phone; 
      private String username; 
      private String password; 
-    private Long roleId; 
+     private String role; 
 }

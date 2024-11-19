@@ -4,7 +4,7 @@ import lombok.*;
 @Builder
 public class RModuleDto {
 
-    private Long id;
+    
     private String module;
     private String description;
 
